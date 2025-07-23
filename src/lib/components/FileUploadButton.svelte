@@ -130,7 +130,7 @@
     const reportData = convertedJsonData.report;
     const date = reportData[0]?.date || 'Report';
 
-    // 1. Prepare data in an array-of-arrays format
+
     const sheetData = [
       [date, null, null], // Title row
       [], // Spacer row
@@ -138,7 +138,7 @@
       [null, "BBTU", "MMSCF"], // Header row 2
     ];
 
-    // 2. Add the data rows
+
     reportData.forEach((item, i) => {
       const startTime = item.periodStart;
       const endTime = (i < reportData.length - 1) ? reportData[i + 1].periodStart : '00:00';
@@ -149,15 +149,15 @@
       ]);
     });
 
-    // 3. Create worksheet and workbook
+
     const ws = XLSX.utils.aoa_to_sheet(sheetData);
     const wb = XLSX.utils.book_new();
 
-    // 4. Define the merged cells to match the table structure
+
     ws['!merges'] = [
-      { s: { r: 0, c: 0 }, e: { r: 0, c: 2 } }, // Merge A1:C1 for the date
-      { s: { r: 2, c: 1 }, e: { r: 2, c: 2 } }, // Merge B3:C3 for "Energy..."
-      { s: { r: 2, c: 0 }, e: { r: 3, c: 0 } }  // Merge A3:A4 for "Period"
+      { s: { r: 0, c: 0 }, e: { r: 0, c: 2 } },
+      { s: { r: 2, c: 1 }, e: { r: 2, c: 2 } },
+      { s: { r: 2, c: 0 }, e: { r: 3, c: 0 } }
     ];
 
     XLSX.utils.book_append_sheet(wb, ws, 'Report');
@@ -199,7 +199,7 @@
       <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
       <span>Converting...</span>
     {:else}
-      <span>Convert to JSON</span>
+      <span>Convert to Table</span>
     {/if}
   </button>
 
