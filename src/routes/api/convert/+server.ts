@@ -1,14 +1,17 @@
 
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-
+import { env as privateEnv } from '$env/dynamic/private';
 // Import the PRIVATE environment variable
-const CONVERSION_API_KEY = process.env.CONVERSION_API_KEY;
+
 
 const EXTERNAL_API_URL = 'https://exportpdftojson-swufcdx2cq-et.a.run.app';
 
 export const POST: RequestHandler = async ({ request }) => {
-  try {
+
+	const CONVERSION_API_KEY = request?.env?.CONVERSION_API_KEY||privateEnv.CONVERSION_API_KEY;
+
+	try {
     // 1. Get the data from the client's request
     const body = await request.json();
     const fileName = body.fileName;
