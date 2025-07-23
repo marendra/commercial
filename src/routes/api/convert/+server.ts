@@ -1,10 +1,9 @@
-// src/routes/api/convert/+server.ts
 
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
 // Import the PRIVATE environment variable
-import { CONVERSION_API_KEY } from '$env/static/private';
+const CONVERSION_API_KEY = process.env.CONVERSION_API_KEY;
 
 const EXTERNAL_API_URL = 'https://exportpdftojson-swufcdx2cq-et.a.run.app';
 
@@ -23,7 +22,6 @@ export const POST: RequestHandler = async ({ request }) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // The secret key is added here, on the server
         'x-api-key': CONVERSION_API_KEY
       },
       body: JSON.stringify({ fileName: fileName })
